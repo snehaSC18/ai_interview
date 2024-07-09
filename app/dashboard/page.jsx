@@ -1,6 +1,7 @@
 import React from 'react'
 import { UserButton } from '@clerk/nextjs'
 import AddNewInterviwe from './_components/AddNewInterview'
+import InterviewList from './_components/InterviewList'
 
 
 function Dashboard() {
@@ -13,6 +14,8 @@ function Dashboard() {
         <div className='grid grid-cols-1 md:grid-cols-3 my-5'>
           <AddNewInterviwe/>
         </div>
+
+       <InterviewList/>
     </div>
   )
 }
