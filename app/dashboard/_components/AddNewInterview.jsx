@@ -23,7 +23,7 @@ function AddNewInterview() {
   const [openDailog, setOpenDailog] = useState(false);
   const [jobPosition, setJobPosition] = useState();
   const [jobDescription, setJobDescription] = useState();
-  const [jobExperience, setJobExperience] = useState();
+  const [jobExp, setJobExp] = useState();
   const [loading, setLoading] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
   const {user} = useUser();
@@ -32,8 +32,8 @@ function AddNewInterview() {
   const onSubmit = async(e)=>{
     setLoading(true)
     e.preventDefault();
-      console.log(jobPosition, jobDescription, jobExperience)
-      const InputPrompt = "Job Role: "+jobPosition+" Job Description: "+jobDescription+" Years Of Experience: "+jobExperience+" Give me "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+" interview questions with answers in json format"
+      console.log(jobPosition, jobDescription, jobExp)
+      const InputPrompt = "Job Role: "+jobPosition+" Job Description: "+jobDescription+" Years Of Experience: "+jobExp+" Give me "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+" interview questions with answers in json format"
       const result = await chatSession.sendMessage(InputPrompt)
       const MockJsonResponse = result.response.text().replace('```json', '').replace('```', '');
       console.log(MockJsonResponse);
@@ -42,10 +42,10 @@ function AddNewInterview() {
       if(MockJsonResponse){
         const resp = await db.insert(MockInterview).values({
           mockId: uuidv4(),
-          jsonMockRes: MockJsonResponse,
+          jsonMockResp: MockJsonResponse,
           jobPosition: jobPosition,
           jobDesc: jobDescription,
-          jobExperience: jobExperience,
+          jobExp: jobExp,
           createdBy: user?.primaryEmailAddress?.emailAddress,
           createdAt: moment().format("DD-MM-yyyy")
         }).returning({mockId: MockInterview.mockId})
@@ -91,7 +91,7 @@ function AddNewInterview() {
 
               <div className='my-3'>
                 <label>Years of Experience</label>
-                <Input placeholder = "Ex. 5" type="number" max="25" required onChange={(event)=>setJobExperience(event.target.value)}/>
+                <Input placeholder = "Ex. 5" type="number" max="25" required onChange={(event)=>setJobExp(event.target.value)}/>
               </div>
              </div>
               <div className='flex gap-5 justify-end'>

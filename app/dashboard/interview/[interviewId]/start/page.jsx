@@ -19,13 +19,25 @@ function StartInteview({ params }) {
       }, [params.interviewId])
 
       const GetInterviewDetails = async () => {
+        try{
         const result = await db.select().from(MockInterview).where(eq(MockInterview.mockId, params.interviewId))
-        
+        if (result && result.length > 0) { 
          
-            const jsonMockResp = JSON.parse(result[0].jsonMockRes);
+            //const jsonMockResp = JSON.parse(result[0].jsonMockResp);
+            const jsonMockResp=JSON.parse(result[0].jsonMockResp)
             console.log(jsonMockResp);
             setMockInterviewQuestion(jsonMockResp);
             setInterviewData(result[0]);
+        }
+        else {
+          console.error('No interview data found for interviewId:', params.interviewId);
+      }
+    }
+    catch (error) {
+      console.error('Error parsing JSON:', error);
+  }
+
+
          
             
           

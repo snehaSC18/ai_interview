@@ -33,7 +33,7 @@ function Interview({ params }) {
               <>
                 <h2 className='text-lg'><strong>Job Role:</strong> {interviewData.jobPosition}</h2>
                 <h2 className='text-lg'><strong>Description:</strong> {interviewData.jobDesc}</h2>
-                <h2 className='text-lg'><strong>Years of Experience</strong> {interviewData.jobExperience}</h2>
+                <h2 className='text-lg'><strong>Years of Experience</strong> {interviewData.jobExp}</h2>
               </>
             ) : (
               <p>Loading interview details...</p>
